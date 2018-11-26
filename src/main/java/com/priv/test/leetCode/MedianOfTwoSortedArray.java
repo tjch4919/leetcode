@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class MedianOfTwoSortedArray {
 
-	public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+	public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
 		if(nums1.length==0) return getMiddleNUmFromOneSortedArray(nums2);
 		if(nums2.length==0) return getMiddleNUmFromOneSortedArray(nums1);
         Map<Integer, int[]> mapLength = new HashMap<Integer, int[]>();
@@ -32,56 +32,56 @@ public class MedianOfTwoSortedArray {
         }
         boolean flag = false;
         int i;
-        int smallBeginIndex = (int) Math.ceil(mapMedian.get(minMedian).length/2.0);
-        int bigBeginIndex = (int) Math.floor(mapMedian.get(maxMedian).length/2.0)-1;
+        int smallBeginIndex = (int) Math.ceil(smallMedianArr.length/2.0);
+        int bigBeginIndex = (int) Math.floor(bigMedianArr.length/2.0)-1;
         int[] a = new int[2];
         int[] b = new int[2];
         for(i = 0; i<Math.floor(minLen/2.0); i++) {
-        	int m = mapMedian.get(minMedian)[smallBeginIndex+i];
-        	int n = mapMedian.get(maxMedian)[bigBeginIndex-i];
+        	int m = smallMedianArr[smallBeginIndex+i];
+        	int n = bigMedianArr[bigBeginIndex-i];
         	if (m==n) {
         		return m;
         	} else if(m>n) {
         		flag=true;
-        		a[0] = mapMedian.get(minMedian)[smallBeginIndex+i-1];
+        		a[0] = smallMedianArr[smallBeginIndex+i-1];
         		a[1] = m;
         		b[0] = n;
-        		b[1] = mapMedian.get(maxMedian)[bigBeginIndex-i];
+        		b[1] = bigMedianArr[bigBeginIndex-i+1];
         		break;
         	}
         }
         if(flag) {
         	if((maxLen+minLen)%2==0) {
         		return (Math.max(a[0], b[0])+Math.min(a[1], b[1]))/2.0;
-        	} else if(minLen%2==0) {
+        	} else if(smallMedianArr.length%2==0) {
         		return Math.min(a[1], b[1]);
         	} else {
         		return Math.max(a[0], b[0]);
         	}
         } else {
-        	if(mapLength.get(maxLen)==mapMedian.get(minMedian)) {
-        		int len = (int) Math.floor(mapMedian.get(maxMedian).length/2.0);
+        	if(mapLength.get(maxLen)==smallMedianArr) {
+        		int len = (int) Math.floor(bigMedianArr.length/2.0);
         		if((maxLen+minLen)%2==0) {
-        			int small = mapMedian.get(minMedian)[smallBeginIndex+len-1];
-        			int big = Math.max(mapMedian.get(minMedian)[smallBeginIndex+len], mapMedian.get(maxMedian)[0]);
+        			int small = smallMedianArr[smallBeginIndex+len-1];
+        			int big = Math.min(smallMedianArr[smallBeginIndex+len], bigMedianArr[0]);
         			return (small+big)/2.0;
         		} else {
-        			return Math.max(mapMedian.get(minMedian)[smallBeginIndex+len], mapMedian.get(maxMedian)[0]);
+        			return Math.min(smallMedianArr[smallBeginIndex+len], bigMedianArr[0]);
         		}
         	} else {
-        		int len = (int) Math.floor(mapMedian.get(minMedian).length/2.0);
+        		int len = (int) Math.floor(smallMedianArr.length/2.0);
         		if((maxLen+minLen)%2==0) {
-        			int small = mapMedian.get(maxMedian)[bigBeginIndex-len+1];
-        			int big = Math.max(mapMedian.get(maxMedian)[bigBeginIndex-len], mapMedian.get(minMedian)[minLen-1]);
+        			int big = bigMedianArr[bigBeginIndex-len+1];
+        			int small = Math.max(bigMedianArr[bigBeginIndex-len], smallMedianArr[minLen-1]);
         			return (small+big)/2.0;
         		} else {
-        			return Math.max(mapMedian.get(maxMedian)[bigBeginIndex-len], mapMedian.get(minMedian)[minLen-1]);
+        			return Math.max(bigMedianArr[bigBeginIndex-len+1], smallMedianArr[minLen-1]);
         		}
         	}
         }
     }
     
-    public double getMiddleNUmFromOneSortedArray (int[] nums) {
+    public static double getMiddleNUmFromOneSortedArray (int[] nums) {
         int length =nums.length;
         if (length%2==0){
             double a = nums[length/2-1];
