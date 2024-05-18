@@ -41,12 +41,14 @@
 
 package leetcode.editor.cn;
 
+import java.util.HashMap;
+
 /**
  * 无重复字符的最长子串
  * @author Jingchong TU
  * @date 2024-05-08 11:25:51
  */
-public class P3_LongestSubstringWithoutRepeatingCharacters{
+public class Q3_LongestSubstringWithoutRepeatingCharacters{
 	 public static void main(String[] args) {
 	 	 // main function for test
 	 	 // Solution solution = new Q3_LongestSubstringWithoutRepeatingCharacters().new Solution();

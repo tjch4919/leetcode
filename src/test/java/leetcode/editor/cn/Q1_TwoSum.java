@@ -48,12 +48,15 @@
 
 package leetcode.editor.cn;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 两数之和
  * @author Jingchong TU
  * @date 2024-05-08 11:08:48
  */
-public class P1_TwoSum{
+public class Q1_TwoSum{
 	 public static void main(String[] args) {
 	 	 // main function for test
 	 	 // Solution solution = new Q1_TwoSum().new Solution();

@@ -48,12 +48,18 @@ package leetcode.editor.cn;
  * @author Jingchong TU
  * @date 2024-05-08 11:14:03
  */
-public class P2_AddTwoNumbers{
+public class Q2_AddTwoNumbers{
 	 public static void main(String[] args) {
 		 // main function for test
 	 	 // Solution solution = new Q2_AddTwoNumbers().new Solution();
 	 }
-	 
+	public class ListNode {
+		 int val;
+		 ListNode next;
+		 ListNode() {}
+		ListNode(int val) { this.val = val; }
+		ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+	 }
     // leetcode solution
     //leetcode submit region begin(Prohibit modification and deletion)
 	/**
