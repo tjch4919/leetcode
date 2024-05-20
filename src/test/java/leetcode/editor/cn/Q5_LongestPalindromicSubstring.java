@@ -49,34 +49,37 @@ public class Q5_LongestPalindromicSubstring{
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public String longestPalindrome(String s) {
-            String longestPalindromic = "";
-            if (s.length() == 1) {
+            if (s.length() == 0) {
                 return s;
             }
-            for (int i = 0, j = 1; j < s.length(); j++) {
-                if (j > 1 && s.charAt(j) == s.charAt(j - 2)) {
-                    int n = 1;
-                    while ((n < j - i - 1) && (n <= s.length() - j) && s.charAt(j + n - 1) == s.charAt(j - n - 1)) {
-                        if (n * 2 + 1 > longestPalindromic.length()) {
-                            longestPalindromic = s.substring(j - n - 1, j + n);
-                        }
-                        n++;
-                    }
-                    i = j - n - 1;
-                    j = j + n -1;
-                } else if (s.charAt(j) == s.charAt(j - 1)) {
-                    int n = 0;
-                    while ((n < j - i) && (n < s.length() - j) && s.charAt(j - n - 1) == s.charAt(j + n)) {
-                        if ((n + 1) * 2 > longestPalindromic.length()) {
-                            longestPalindromic = s.substring(j - n - 1, j + n + 1);
-                        }
-                        n++;
-                    }
-                    i = j - n;
-                    j = j + n -1;
+            int maxLength = 0;
+            String longestPalindrome = "";
+            char[] chars = s.toCharArray();
+            for (int i = 0; i < chars.length; i++) {
+                int oddRadius = getLongestPalindromeRadiusOfCenter(chars, i, i);
+                if (2 * oddRadius - 1 > maxLength) {
+                    maxLength = 2 * oddRadius - 1;
+                    longestPalindrome = s.substring(i - oddRadius + 1, i + oddRadius);
+                }
+                int pairRadius = i == chars.length - 1 ? 0 : getLongestPalindromeRadiusOfCenter(chars, i, i + 1);
+                if (2 * pairRadius > maxLength) {
+                    maxLength = 2 * pairRadius;
+                    longestPalindrome = s.substring(i - pairRadius + 1, i + pairRadius + 1);
                 }
             }
-            return longestPalindromic.length() > 0 ? longestPalindromic : s.substring(0, 1);
+            return longestPalindrome;
+        }
+
+        private int getLongestPalindromeRadiusOfCenter(char[] s, int leftIndex, int rightIndex) {
+            int length = 0;
+            for (int i = 0; leftIndex - i >=0 && rightIndex + i < s.length; i++) {
+                if (s[leftIndex - i] == s[rightIndex + i]) {
+                    length++;
+                } else {
+                    break;
+                }
+            }
+            return length;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

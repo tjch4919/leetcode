@@ -62,10 +62,12 @@ public class Q3_LongestSubstringWithoutRepeatingCharacters{
             if (n == 0) {
                 return 0;
             }
+            // 这个map存的是某个字符的最大下标 + 1
             HashMap<Character, Integer> map = new HashMap<>();
             int max = 0;
             for (int i = 0, j = 0; j < n; j++) {
                 if (map.containsKey(s.charAt(j))) {
+                    // i 为上次发生重复事件时第一个重复字符的下标 + 1
                     i = Math.max(map.get(s.charAt(j)), i);
                 }
                 map.put(s.charAt(j), j + 1);
