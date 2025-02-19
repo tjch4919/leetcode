@@ -1,0 +1,59 @@
+    class Solution {
+        public int threeSumClosest(int[] nums, int target) {
+            Arrays.sort(nums);
+            int currentRes = 0, lastIndex = nums.length - 1;
+            int currentAbsDelta = Integer.MAX_VALUE, i = 0, nextK = lastIndex, lastIValue = Integer.MAX_VALUE;
+            while (i < nums.length - 2) {
+                if (nums[i] == lastIValue) {
+                    i++;
+                    continue;
+                }
+                int j = i + 1, k = nextK, lastJValue = Integer.MAX_VALUE;
+                while (j < k) {
+                    if (nums[j] == lastJValue) {
+                        j++;
+                        continue;
+                    }
+                    if (nums[i] + nums[j] + nums[k] == target) {
+                        return target;
+                    } else if (nums[i] + nums[j] + nums[k] > target) {
+                        if (k - j == 1) {
+                            int current = nums[i] + nums[j] + nums[k];
+                            int absDelta = Math.abs(current - target);
+                            if (absDelta < currentAbsDelta) {
+                                currentRes = current;
+                                currentAbsDelta = absDelta;
+                            }
+                        }
+                        k--;
+                    } else {
+                        int current = nums[i] + nums[j] + nums[k];
+                        int absDelta = Math.abs(current - target);
+                        if (absDelta < currentAbsDelta) {
+                            currentRes = current;
+                            currentAbsDelta = absDelta;
+                        }
+                        if (k + 1 <= lastIndex) {
+                            int last = nums[i] + nums[j] + nums[k + 1];
+                            absDelta = Math.abs(last - target);
+                            if (absDelta < currentAbsDelta) {
+                                currentRes = last;
+                                currentAbsDelta = absDelta;
+                            }
+                        }
+                        if (j - i == 1) {
+                            nextK = k;
+                        }
+                        lastJValue = nums[j];
+                        j++;
+                    }
+                }
+                lastIValue = nums[i];
+                i++;
+            }
+            return currentRes;
+        }
+    }
+
+//runtime:12 ms
+//memory:42.2 MB
